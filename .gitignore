@@ -1,5 +1,6 @@
 *.out
 *.pyc
+.idea
 */__pycache__
 logs/
 *.pt

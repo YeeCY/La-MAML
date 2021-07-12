@@ -5,7 +5,7 @@ import argparse
 def get_parser():
     parser = argparse.ArgumentParser(description='Continual learning')
     parser.add_argument('--expt_name', type=str, default='test_lamaml',
-                    help='name of the experiment')
+                        help='name of the experiment')
     
     # model details
     parser.add_argument('--model', type=str, default='single',
@@ -18,8 +18,6 @@ def get_parser():
                         help='number of hidden layers')
     parser.add_argument('--xav_init', default=False , action='store_true',
                         help='Use xavier initialization')
-
-
 
     # optimizer parameters influencing all models
     parser.add_argument("--glances", default=1, type=int,
@@ -35,7 +33,6 @@ def get_parser():
                         help='number of total memories stored in a reservoir sampling based buffer')
     parser.add_argument('--lr', type=float, default=1e-3,
                         help='learning rate (For baselines)')
-
     
     # experiment parameters
     parser.add_argument('--cuda', default=False , action='store_true',
@@ -78,7 +75,6 @@ def get_parser():
     parser.add_argument('--test_batch_size', type=int, default=100000 ,
                         help='batch size to use during testing.')
 
-
     # La-MAML parameters
     parser.add_argument('--opt_lr', type=float, default=1e-1,
                         help='learning rate for LRs')
@@ -100,7 +96,6 @@ def get_parser():
     parser.add_argument('--second_order', default=False , action='store_true',
                         help='use second order MAML updates')
 
-
    # memory parameters for GEM | AGEM | ICARL 
     parser.add_argument('--n_memories', type=int, default=0,
                         help='number of memories per task')
@@ -108,7 +103,6 @@ def get_parser():
                         help='memory strength (meaning depends on memory)')
     parser.add_argument('--steps_per_sample', default=1, type=int,
                         help='training steps per batch')
-
 
     # parameters specific to MER 
     parser.add_argument('--gamma', type=float, default=1.0,
@@ -119,7 +113,6 @@ def get_parser():
                         help='current example learning rate multiplier (s)')
     parser.add_argument('--batches_per_example', type=float, default=1,
                         help='the number of batch per incoming example')
-
 
     # parameters specific to Meta-BGD
     parser.add_argument('--bgd_optimizer', type=str, default="bgd", choices=["adam", "adagrad", "bgd", "sgd"],

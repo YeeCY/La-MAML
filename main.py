@@ -1,9 +1,9 @@
 import importlib
-import datetime
-import argparse
+# import datetime
+# import argparse
 import time
 import os
-import ipdb
+# import ipdb
 from tqdm import tqdm
 
 import torch
@@ -15,7 +15,7 @@ from utils import misc_utils
 from main_multi_task import life_experience_iid, eval_iid_tasks
 
 def eval_class_tasks(model, tasks, args):
-
+    # TODO (chongyi zheng): no adaptation during evaluation
     model.eval()
     result = []
     for t, task_loader in enumerate(tasks):
@@ -83,7 +83,7 @@ def life_experience(model, inc_loader, args):
             prog_bar = tqdm(train_loader)
             for (i, (x, y)) in enumerate(prog_bar):
 
-                if((i % args.log_every) == 0):
+                if (i % args.log_every) == 0:
                     result_val_a.append(evaluator(model, val_tasks, args))
                     result_val_t.append(task_info["task"])
 
@@ -101,8 +101,9 @@ def life_experience(model, inc_loader, args):
 
                 prog_bar.set_description(
                     "Task: {} | Epoch: {}/{} | Iter: {} | Loss: {} | Acc: Total: {} Current Task: {} ".format(
-                        task_info["task"], ep+1, args.n_epochs, i%(1000*args.n_epochs), round(loss, 3),
-                        round(sum(result_val_a[-1]).item()/len(result_val_a[-1]), 5), round(result_val_a[-1][task_info["task"]].item(), 5)
+                        task_info["task"], ep + 1, args.n_epochs, i % (1000 * args.n_epochs), round(loss, 3),
+                        round(sum(result_val_a[-1]).item() / len(result_val_a[-1]), 5),
+                        round(result_val_a[-1][task_info["task"]].item(), 5)
                     )
                 )
 
@@ -171,7 +172,7 @@ def main():
     model = Model.Net(n_inputs, n_outputs, n_tasks, args)
     if args.cuda:
         try:
-            model.net.cuda()            
+            model.net.cuda()
         except:
             pass 
 

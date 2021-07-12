@@ -6,9 +6,9 @@ from torchvision import datasets, transforms
 import os
 from dataloaders import cifar_info
 
-class DummyDataset(torch.utils.data.Dataset):
 
-    def __init__(self, x, y, trsf, pretrsf = None, imgnet_like = False, super_y = None):
+class DummyDataset(torch.utils.data.Dataset):
+    def __init__(self, x, y, trsf, pretrsf=None, imgnet_like=False, super_y=None):
         self.x, self.y = x, y
         self.super_y = super_y
 
@@ -27,10 +27,10 @@ class DummyDataset(torch.utils.data.Dataset):
         if self.super_y is not None:
             super_y = self.super_y[idx]
 
-        if(self.pretrsf is not None):
-            x = self.pretrsf(x)    
-        
-        if(not self.imgnet_like):
+        if self.pretrsf is not None:
+            x = self.pretrsf(x)
+
+        if not self.imgnet_like:
             x = Image.fromarray(x)
         x = self.trsf(x)
 
@@ -38,6 +38,7 @@ class DummyDataset(torch.utils.data.Dataset):
             return x, y, super_y
         else:
             return x, y
+
 
 class DummyArrayDataset(torch.utils.data.Dataset):
 
@@ -51,6 +52,7 @@ class DummyArrayDataset(torch.utils.data.Dataset):
         x, y = self.x[idx], self.y[idx]
 
         return x, y
+
 
 def _get_datasets(dataset_names):
     return [_get_dataset(dataset_name) for dataset_name in dataset_names.split("-")]
@@ -67,6 +69,7 @@ def _get_dataset(dataset_name):
         return iImgnet
     else:
         raise NotImplementedError("Unknown dataset {}.".format(dataset_name))
+
 
 class DataHandler:
     base_dataset = None
@@ -100,6 +103,7 @@ class iImgnet(DataHandler):
         i for i in range(200)
     ]
 
+
 class iCIFAR10(DataHandler):
     base_dataset = datasets.cifar.CIFAR10
     base_dataset_hierarchy = cifar_info.CIFAR10
@@ -117,6 +121,7 @@ class iCIFAR10(DataHandler):
         transforms.ToTensor(),
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
     ]
+
 
 class iCIFAR100(iCIFAR10):
     base_dataset = datasets.cifar.CIFAR100

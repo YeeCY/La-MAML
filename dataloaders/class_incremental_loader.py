@@ -25,9 +25,9 @@ class IncrementalLoader:
         seed=1,
     ):
         self._opt = opt
-        dataset_name=opt.dataset
-        validation_split=opt.validation
-        self.increment=opt.increment
+        dataset_name = opt.dataset
+        validation_split = opt.validation
+        self.increment = opt.increment
 
         datasets = _get_datasets(dataset_name)
         self._setup_data(
@@ -149,7 +149,7 @@ class IncrementalLoader:
             raise NotImplementedError("Unknown mode {}.".format(mode))
 
         return DataLoader(
-            DummyDataset(x, y, trsf, pretrsf, self._opt.dataset=='tinyimagenet'),
+            DummyDataset(x, y, trsf, pretrsf, self._opt.dataset == 'tinyimagenet'),
             batch_size=batch_size,
             shuffle=shuffle,
             num_workers=self._workers
@@ -167,7 +167,7 @@ class IncrementalLoader:
         current_class_idx = 0  # When using multiple datasets
         for dataset in datasets:
 
-            if(self._opt.dataset == 'tinyimagenet'):
+            if self._opt.dataset == 'tinyimagenet':
                 root_path = self._opt.data_path
                 train_dataset = dataset.base_dataset(root_path + 'train/')
                 test_dataset = dataset.base_dataset(root_path + 'val/')
@@ -192,7 +192,7 @@ class IncrementalLoader:
                     print("Classes are presented in a chronological order")
 
             else:
-                root_path =  self._opt.data_path
+                root_path = self._opt.data_path
                 train_dataset = dataset.base_dataset(root_path, train=True, download=True)
                 test_dataset = dataset.base_dataset(root_path, train=False, download=True)
 

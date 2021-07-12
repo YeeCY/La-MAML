@@ -9,7 +9,7 @@ class ModelFactory():
 
         net_list = []
         if "mnist" in dataset:
-            if model_type=="linear":
+            if model_type == "linear":
                 for i in range(0, len(sizes) - 1):
                     net_list.append(('linear', [sizes[i+1], sizes[i]], ''))
                     if i < (len(sizes) - 2):

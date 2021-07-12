@@ -1,8 +1,8 @@
 import math
-import os
+# import os
 import sys
 import traceback
-import numpy as np
+# import numpy as np
 import ipdb
 
 import torch
@@ -11,7 +11,7 @@ from torch.nn import functional as F
 
 class Learner(nn.Module):
 
-    def __init__(self, config, args = None):
+    def __init__(self, config, args=None):
         """
 
         :param config: network config file, type:list of (string, list)
@@ -297,5 +297,3 @@ class Learner(nn.Module):
         :return:
         """
         return self.vars
-
-
