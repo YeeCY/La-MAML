@@ -34,7 +34,7 @@ class Learner(nn.Module):
         for i, (name, param, extra_name) in enumerate(self.config):
             if name is 'conv2d':
                 # [ch_out, ch_in, kernelsz, kernelsz]                
-                if(self.args.xav_init):
+                if self.args.xav_init :
                     w = nn.Parameter(torch.ones(*param[:4]))
                     b = nn.Parameter(torch.zeros(param[0]))
                     torch.nn.init.xavier_normal_(w.data)
@@ -60,7 +60,7 @@ class Learner(nn.Module):
 
             elif name is 'linear':
                 # layer += 1
-                if(self.args.xav_init):
+                if self.args.xav_init:
                     w = nn.Parameter(torch.ones(*param))
                     # b = nn.Parameter(torch.zeros(param[0]))
                     torch.nn.init.xavier_normal_(w.data)

@@ -17,8 +17,8 @@ class IncrementalLoader:
         seed=1,
     ):
         self._opt = opt
-        validation_split=opt.validation
-        increment=opt.increment
+        validation_split = opt.validation
+        increment = opt.increment
 
         self._setup_data(
             class_order_type=opt.class_order,
@@ -108,7 +108,14 @@ class IncrementalLoader:
         # FIXME: handles online loading of images
         torch.manual_seed(seed)
 
-        self.train_dataset, self.test_dataset = torch.load(os.path.join(self._opt.data_path, self._opt.dataset + ".pt"))
+        if self._opt.dataset == 'mnist_permutations':
+            self.train_dataset, self.test_dataset = torch.load(
+                os.path.join(self._opt.data_path, self._opt.dataset + ".pt"))
+            self.train_dataset = self.train_dataset[:10]
+            self.test_dataset = self.test_dataset[:10]
+        else:
+            self.train_dataset, self.test_dataset = torch.load(
+                os.path.join(self._opt.data_path, self._opt.dataset + ".pt"))
 
         self.sample_permutations = []
 
